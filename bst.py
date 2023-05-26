@@ -91,8 +91,10 @@ class BinarySearchTree(Generic[K, I]):
         if current is None:  # base case: at the leaf
             current = TreeNode(key, item=item)
             self.length += 1
+            current.subtree_size + 1
         elif key < current.key:
             current.left = self.insert_aux(current.left, key, item)
+
         elif key > current.key:
             current.right = self.insert_aux(current.right, key, item)
         else:  # key == current.key
@@ -107,7 +109,7 @@ class BinarySearchTree(Generic[K, I]):
             Attempts to delete an item from the tree, it uses the Key to
             determine the node to delete.
         """
-
+        current.subtree_size -= 1
         if current is None:  # key not found
             raise ValueError('Deleting non-existent item')
         elif key < current.key:
@@ -139,13 +141,39 @@ class BinarySearchTree(Generic[K, I]):
             It should be a child node having the smallest key among all the
             larger keys.
         """
-        raise NotImplementedError()
+        return self.get_successor_aux(current)
+
+    def get_successor_aux(self, current: TreeNode):
+        # if current is None:
+        #     return smallest_successor_key
+
+        # if current.left < current:
+        # #     return self.get_
+        # # elif smallest_successor_key < current.left.key:
+        # #     return self.get_minimal_aux(current.left, smallest_successor_key)
+        # elif smallest_successor_key > current.left.key:
+        #     return self.get_minimal_aux(current.left, current.left.key)
+        # elif current.key < current.right.key:
+        #     return self.get_successor_aux(current.right, smallest_successor_key)
+
+        if current.right is None:
+            return None
+        return self.get_minimal_aux(current.right, current)
 
     def get_minimal(self, current: TreeNode) -> TreeNode:
         """
             Get a node having the smallest key in the current sub-tree.
         """
-        raise NotImplementedError()
+        return self.get_minimal_aux(current, current)
+
+    def get_minimal_aux(self, current: TreeNode, minimal_key):
+        if current.left is None:
+            return minimal_key
+        return self.get_minimal_aux(current.left, current.left)
+        # if current.key < current.left.key:
+        #     return self.get_minimal_aux(current.left, current.key)
+        # else:
+        #     return self.get_minimal_aux(current.left, current.left.key)
 
     def is_leaf(self, current: TreeNode) -> bool:
         """ Simple check whether or not the node is a leaf. """
