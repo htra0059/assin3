@@ -104,7 +104,7 @@ class BinarySearchTree(Generic[K, I]):
             # print("GOING RIGHT")
             current.subtree_size += 1
             current.right = self.insert_aux(current.right, key, item)
-            # current.subtree_size + 1
+
         else:  # key == current.key
             raise ValueError('Inserting duplicate item')
         # print("I AM {} WITH SIZE {}".format(current, current.subtree_size))
@@ -141,6 +141,8 @@ class BinarySearchTree(Generic[K, I]):
             current.key  = succ.key
             current.item = succ.item
             current.right = self.delete_aux(current.right, succ.key)
+
+
 
         return current
 
@@ -193,119 +195,22 @@ class BinarySearchTree(Generic[K, I]):
             print('{0}'.format(real_prefix), file=to)
 
 
-    # def inorder_traversal(self, node) -> list:
-    #     my_list = []
-    #     node = self.root
-    #     self.inorder_traversal_aux(node, my_list)
-    #     return my_list
-    #
-    # def inorder_traversal_aux(self, current: TreeNode, cur_list: list[TreeNode[K, I]]):
-    #     if current is None:
-    #         return
-    #     self.inorder_traversal_aux(current.left, cur_list)
-    #     cur_list.append(current.item)
-    #     self.inorder_traversal_aux(current.right, cur_list)
-
-    # def treesort(array: List[int]) -> List[int]:
-    #     """ Simple Tree Sort implementation.
-    #         1. Adds all elements of the array to the tree.
-    #         2. Traverses the tree in-order.
-    #     """
-    #     ## in each tree sort we need a new tree or we cannot add anyhting
-    #     tree = BinarySearchTree()
-    #
-    #     for v in array:  ##insert al elements from tree as needed, this insertion also handles the operations of BST
-    #         tree[v] = v  # <v,v> key value pairs, this magic method adds all elements to true
-    #     # once done, elements are yet to be sorted, by are in a binary search tree
-    #     new_array = []
-    #
-    #     def sorted_append(v):
-    #         new_array.append(v)
-    #
-    #     tree.inorder(sorted_append)
-    #
-    #     return new_array
     def kth_smallest(self, k: int, current: TreeNode) -> TreeNode:
         """
         Finds the kth smallest value by key in the subtree rooted at current.
         """
-        if k == 1:
+        if k != 1 and current.left is None:
+            return self.kth_smallest(k - 1, current.right)
+
+        if self.is_leaf(current) or (current.left is None and k == 1) or current.left.subtree_size + 1 == k:
             return current
-        if current.left is not None and current.left.subtree_size < k:
+        elif current.left.subtree_size + 1 > k:
+            print("GOING LEFT")
+            return self.kth_smallest(k, current.left)
+        elif current.left.subtree_size + 1 < k:
+            print("GOING RIGHT")
+            return self.kth_smallest(k - (current.left.subtree_size + 1), current.right)
 
-
-        stack = ArrayR(k)
-        print(current.left)
-        for i in range(k):
-            if current.left is not None:
-                temp_min = self.get_minimal(current)
-                # self.__delitem__(temp_min.key)
-                current.
-                getter = self.__getitem__(temp_min.key)
-                print("MY GETTER {}".format(getter))
-            else:
-                temp_min = self.get_successor(current)
-                self.__delitem__(temp_min.key)
-            stack[i] = temp_min.key, temp_min.item
-            print(temp_min)
-            print(current)
-            print(self.get_minimal(current))
-            print("   ")
-        print(len(stack))
-        for term in reversed(stack):
-            print(term)
-            # print(i)
-            # print(i[0])
-            # print(stack[i])
-            self.__setitem__(term[0], term[1])
-
-        print("  ")
-        print(self.get_minimal(self.root))
-        print(current)
-        print(" TESTING INPUTS ")
-        print(current.left)
-        return temp_min
-
-
-
-        # print(stack.__len__())
-        # print(len(stack))
-        # print(current)
-        # for i in range(current.subtree_size):
-        #     if current.left is not None:
-        #         minimal = self.get_minimal(current)
-        #         print(minimal)
-        #         stack[i] = minimal.key, minimal.item
-        #         print("CHECKING MY STACK CONTENT {}".format(stack[i]))
-        #         # del minimal.key
-        #         self.__delitem__(stack[i][0])
-        #         print("MY NEW STACK[i] {} AND VALUE {}".format(stack[i][0],stack[i][1]))
-        #         print(len(stack))
-        #         # print("FIRST IF")
-        #         print("WHICH I I AM IN {} ".format(i))
-        #         break
-        #     if current.right is not None:
-        #         print("WHICH I I AM IN {} ".format(i))
-        #         # print("2nd if")
-        #         stack[i] = self.get_successor(current)
-        #         # self.__delitem__(stack[i].key)
-        #         break
-        #     if self.is_leaf(current):
-        #         print("WHICH I I AM IN {} ".format(i))
-        #         break
-        # for i in range(len(stack)):
-        #     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        #     print(stack[i])
-        # item_to_return = stack[k]
-        # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        # print(item_to_return)
-        # print(len(stack))
-        # for i in range(len(stack)):
-        #     print(stack[i])
-        #     # print("WE {} COOL {} GUYS {}".format(stack[i]), stack[i][0], stack[i][1])
-        #     # self.__setitem__(stack[i], stack[0], stack[1])
-        #
-        # return item_to_return
 
 
 
