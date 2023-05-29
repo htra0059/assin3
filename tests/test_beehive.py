@@ -4,6 +4,7 @@ from ed_utils.timeout import timeout
 
 from beehive import BeehiveSelector, Beehive
 
+
 class TestBeehiveSelector(unittest.TestCase):
 
     @timeout()
@@ -17,27 +18,20 @@ class TestBeehiveSelector(unittest.TestCase):
             Beehive(45, 42, 43, capacity=1, nutrient_factor=85, volume=10),
             Beehive(55, 52, 53, capacity=400, nutrient_factor=5000, volume=0),
         )
-        # b2 = b3 are both highest, b4 b1 b5, SO b2, b3, b4, b1, b5
-        print(b1)
-        print(b2)
-        print(b3)
-        print(b4)
-        print(b5)
-        print("BOOGERS")
         for hive in [b1, b2, b3, b4, b5]:
             s.add_beehive(hive)
-        
+
         all_emeralds = []
-        for _ in range(25):
+        for _ in range(15):
             all_emeralds.append(s.harvest_best_beehive())
-        
+
         expected = [
             # Choices are:
-            120, # Beehive b2 or b3
-            120, # Beehive b2 or b3
-            120, # Beehive b2
+            120,  # Beehive b2 or b3
+            120,  # Beehive b2 or b3
+            120,  # Beehive b2
             # Now, b3 has volume 0 and b2 has volume 10
-            85, # Pick b4 10 times
+            85,  # Pick b4 10 times
             85,
             85,
             85,
@@ -47,12 +41,10 @@ class TestBeehiveSelector(unittest.TestCase):
             85,
             85,
             85,
-            80, # b2
-            75, # b1
+            80,  # b2
+            75,  # b1
         ]
         self.assertEqual(len(all_emeralds), len(expected))
         for actual, ex in zip(all_emeralds, expected):
             self.assertAlmostEqual(actual, ex, 0)
 
-
-        

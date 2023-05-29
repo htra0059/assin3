@@ -23,6 +23,7 @@ class MaxHeap(Generic[T]):
     def rise(self, k: int) -> None:
         """
         Rise element at index k to its correct position
+        Instead of comparing Item in while loop, we compute item_value and compare these computed values instead
         :pre: 1 <= k <= self.length
         """
         item = self.the_array[k]
@@ -48,7 +49,7 @@ class MaxHeap(Generic[T]):
 
     def largest_child(self, k: int) -> int:
         """
-        Returns the index of k's child with greatest value.
+        Returns the index of k's child with greatest computed value.
         :pre: 1 <= k <= self.length // 2
         """
         
@@ -61,6 +62,7 @@ class MaxHeap(Generic[T]):
 
     def sink(self, k: int) -> None:
         """ Make the element at index k sink to the correct position.
+            Instead of using item, we use the computed values of items at that position
             :pre: 1 <= k <= self.length
             :complexity: ???
         """

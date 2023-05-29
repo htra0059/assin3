@@ -22,8 +22,8 @@ class BeeNode:
     def get_child_for_key(self, point: Point) -> BeeNode | None:
         """
         Complexity:
-        Best Case: O(1)*comp, where constant comparisons are made between the keys in the points
-        Worst Case: Same as best best,
+        Best Case: O(1) where constant comparisons are made between the keys in the points
+        Worst Case: O(1) Same as worse case
         """
         if self.key[0] < point[0] and self.key[1] < point[1] and self.key[2] < point[2]:
             return self.oct1
@@ -85,6 +85,11 @@ class ThreeDeeBeeTree(Generic[I]):
         return self.get_tree_node_by_key_aux(self.root, key)
 
     def get_tree_node_by_key_aux(self, current: BeeNode, key: Point) -> BeeNode:
+        """
+            Complexity:
+            Best Case: O(1) where there is no recursive call and the current.key is equal to the root node
+            Worst Case: O(D) where D represents the depth of node from the root
+        """
         if current is None:
             raise KeyError('Key not found: {0}'.format(key))
         elif key == current.key:
@@ -114,6 +119,9 @@ class ThreeDeeBeeTree(Generic[I]):
     def insert_aux(self, current: BeeNode, key: Point, item: I) -> BeeNode:
         """
             Attempts to insert an item into the tree, it uses the Key to insert it
+            Complexity:
+            Best Case: O(1) when current is None (inserting into the root node)
+            Worst Case: O(D) where D represents the depth that we have to go through to insert this node
         """
         if current is None:
             current = BeeNode(key, item)
@@ -146,7 +154,11 @@ class ThreeDeeBeeTree(Generic[I]):
         return current
 
     def is_leaf(self, current: BeeNode) -> bool:
-        """ Simple check whether or not the node is a leaf. """
+        """ Simple check whether or not the node is a leaf.
+            Complexity:
+            Best case: O(1)
+            Worst case: O(1)
+        """
         return (
                 current.oct1 is None and
                 current.oct2 is None and
