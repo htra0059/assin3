@@ -28,7 +28,7 @@ class TestBeehiveSelector(unittest.TestCase):
             s.add_beehive(hive)
         
         all_emeralds = []
-        for _ in range(15):
+        for _ in range(25):
             all_emeralds.append(s.harvest_best_beehive())
         
         expected = [

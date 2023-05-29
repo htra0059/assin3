@@ -13,6 +13,7 @@ class Beehive:
     nutrient_factor: int
     volume: int = 0
 
+
 class BeehiveSelector:
 
     def __init__(self, max_beehives: int):
@@ -27,7 +28,7 @@ class BeehiveSelector:
 
     
     def add_beehive(self, hive: Beehive):
-        raise NotImplementedError()
+        self.our_adt.add(hive)
     
     def harvest_best_beehive(self):
         popped_hive = self.our_adt.get_max()

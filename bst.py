@@ -117,14 +117,17 @@ class BinarySearchTree(Generic[K, I]):
             Attempts to delete an item from the tree, it uses the Key to
             determine the node to delete.
         """
-        current.subtree_size -= 1
+
         if current is None:  # key not found
             raise ValueError('Deleting non-existent item')
         elif key < current.key:
+            current.subtree_size -= 1
             current.left  = self.delete_aux(current.left, key)
         elif key > current.key:
+            current.subtree_size -= 1
             current.right = self.delete_aux(current.right, key)
         else:  # we found our key => do actual deletion
+            current.subtree_size -= 1
             if self.is_leaf(current):
                 self.length -= 1
                 return None
@@ -178,6 +181,7 @@ class BinarySearchTree(Generic[K, I]):
         if current.left is None:
             return current
         return self.get_minimal_aux(current.left)
+
     def is_leaf(self, current: TreeNode) -> bool:
         """ Simple check whether or not the node is a leaf. """
 

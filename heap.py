@@ -26,10 +26,14 @@ class MaxHeap(Generic[T]):
         :pre: 1 <= k <= self.length
         """
         item = self.the_array[k]
-        while k > 1 and item > self.the_array[k // 2]:
+        item_value = min(item.capacity, item.volume) * item.nutrient_factor
+
+        while k > 1 and item_value > min(self.the_array[k // 2].capacity, self.the_array[k // 2].volume) * self.the_array[k // 2].nutrient_factor:
             self.the_array[k] = self.the_array[k // 2]
             k = k // 2
         self.the_array[k] = item
+
+
 
     def add(self, element: T) -> bool:
         """
@@ -49,7 +53,8 @@ class MaxHeap(Generic[T]):
         """
         
         if 2 * k == self.length or \
-                self.the_array[2 * k] > self.the_array[2 * k + 1]:
+                min(self.the_array[2 * k].capacity, self.the_array[2 * k].volume) * self.the_array[2 * k].nutrient_factor > \
+                min(self.the_array[2 * k + 1].capacity, self.the_array[2 * k + 1].volume) * self.the_array[2 * k + 1].nutrient_factor:
             return 2 * k
         else:
             return 2 * k + 1
@@ -60,10 +65,11 @@ class MaxHeap(Generic[T]):
             :complexity: ???
         """
         item = self.the_array[k]
+        item_value = min(item.capacity, item.volume) * item.nutrient_factor
 
         while 2 * k <= self.length:
             max_child = self.largest_child(k)
-            if self.the_array[max_child] <= item:
+            if min(self.the_array[max_child].capacity, self.the_array[max_child].volume) * self.the_array[max_child].nutrient_factor <= item_value:
                 break
             self.the_array[k] = self.the_array[max_child]
             k = max_child

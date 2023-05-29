@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Generic, TypeVar
-from math import ceil
+from math import ceil, floor
 from bst import BinarySearchTree
 
 T = TypeVar("T")
@@ -45,9 +45,7 @@ class Percentiles(Generic[T]):
 
 
 if __name__ == "__main__":
-    points = list(range(50))
-    import random
-    random.shuffle(points)
+    points = [1, 0, 2]
     p = Percentiles()
     for point in points:
         p.add_point(point)

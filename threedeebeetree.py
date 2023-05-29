@@ -20,7 +20,27 @@ class BeeNode:
     oct7: BeeNode | None = None
     oct8: BeeNode | None = None
     def get_child_for_key(self, point: Point) -> BeeNode | None:
-        raise NotImplementedError()
+        """
+        Complexity:
+        Best Case: O(1)*comp, where constant comparisons are made between the keys in the points
+        Worst Case: Same as best best,
+        """
+        if self.key[0] < point[0] and self.key[1] < point[1] and self.key[2] < point[2]:
+            return self.oct1
+        elif self.key[0] < point[0] and self.key[1] >= point[1] and self.key[2] < point[2]:
+            return self.oct2
+        elif self.key[0] < point[0] and self.key[1] >= point[1] and self.key[2] >= point[2]:
+            return self.oct3
+        elif self.key[0] < point[0] and self.key[1] < point[1] and self.key[2] >= point[2]:
+            return self.oct4
+        elif self.key[0] >= point[0] and self.key[1] < point[1] and self.key[2] >= point[2]:
+            return self.oct5
+        elif self.key[0] >= point[0] and self.key[1] < point[1] and self.key[2] < point[2]:
+            return self.oct6
+        elif self.key[0] >= point[0] and self.key[1] >= point[1] and self.key[2] < point[2]:
+            return self.oct7
+        elif self.key[0] >= point[0] and self.key[1] >= point[1] and self.key[2] >= point[2]:
+            return self.oct8
 
 
 class ThreeDeeBeeTree(Generic[I]):
@@ -89,6 +109,7 @@ class ThreeDeeBeeTree(Generic[I]):
 
     def __setitem__(self, key: Point, item: I) -> None:
         self.root = self.insert_aux(self.root, key, item)
+
 
     def insert_aux(self, current: BeeNode, key: Point, item: I) -> BeeNode:
         """
