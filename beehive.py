@@ -13,7 +13,6 @@ class Beehive:
     nutrient_factor: int
     volume: int = 0
 
-
 class BeehiveSelector:
 
     def __init__(self, max_beehives: int):
@@ -25,8 +24,6 @@ class BeehiveSelector:
             new_adt.add(hive)
         self.our_adt = new_adt
 
-
-    
     def add_beehive(self, hive: Beehive):
         self.our_adt.add(hive)
     

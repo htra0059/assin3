@@ -60,8 +60,9 @@ class ThreeDeeBeeTree(Generic[I]):
         return len(self) == 0
 
     def __len__(self) -> int:
-        """ Returns the number of nodes in the tree. """
-
+        """
+            Returns the number of nodes in the tree.
+        """
         return self.length
 
     def __contains__(self, key: Point) -> bool:
@@ -114,7 +115,6 @@ class ThreeDeeBeeTree(Generic[I]):
 
     def __setitem__(self, key: Point, item: I) -> None:
         self.root = self.insert_aux(self.root, key, item)
-
 
     def insert_aux(self, current: BeeNode, key: Point, item: I) -> BeeNode:
         """

@@ -31,19 +31,11 @@ class Percentiles(Generic[T]):
 
 
 if __name__ == "__main__":
-    points = [1, 0, 2]
+    points = list(range(50))
+    import random
+    random.shuffle(points)
     p = Percentiles()
     for point in points:
         p.add_point(point)
-
-    print(p.our_adt.root, p.our_adt.root.left, p.our_adt.root.right)
-    print(p.our_adt[1])
-    print(p.our_adt.root)
-    p.remove_point(1)
-    print(p.our_adt.root)
-    #print(p.our_adt[1])
-
-    # for i in p:
-    #     print(p)
     # Numbers from 8 to 16.
-    # print(p.ratio(15, 66))
+    print(p.ratio(15, 66))
