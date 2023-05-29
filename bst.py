@@ -79,7 +79,6 @@ class BinarySearchTree(Generic[K, I]):
             return self.get_tree_node_by_key_aux(current.right, key)
 
     def __setitem__(self, key: K, item: I) -> None:
-
         self.root = self.insert_aux(self.root, key, item)
 
     def insert_aux(self, current: TreeNode, key: K, item: I) -> TreeNode:
@@ -155,6 +154,11 @@ class BinarySearchTree(Generic[K, I]):
         return self.get_successor_aux(current)
 
     def get_successor_aux(self, current: TreeNode):
+        """
+            Complexity:
+            Best Case: O(1) Where there is no current.right and just return None
+            Worst Case: O(D) where D is the maximum depth the current.right subtree to get the minimum
+        """
         if current.right is None:
             return None
         return self.get_minimal_aux(current.right)
@@ -166,6 +170,11 @@ class BinarySearchTree(Generic[K, I]):
         return self.get_minimal_aux(current)
 
     def get_minimal_aux(self, current: TreeNode):
+        """
+            Complexity: 
+            Best Case: O(1) when there is no current.left and just return current
+            Worst Case: O(D) where D is the maximum depth of that current can go through current.left to achieve minimum
+        """
         if current.left is None:
             return current
         return self.get_minimal_aux(current.left)
@@ -204,11 +213,11 @@ class BinarySearchTree(Generic[K, I]):
 
         if self.is_leaf(current) or (current.left is None and k == 1) or current.left.subtree_size + 1 == k:
             return current
+
         elif current.left.subtree_size + 1 > k:
-            print("GOING LEFT")
             return self.kth_smallest(k, current.left)
+
         elif current.left.subtree_size + 1 < k:
-            print("GOING RIGHT")
             return self.kth_smallest(k - (current.left.subtree_size + 1), current.right)
 
 

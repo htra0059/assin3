@@ -24,9 +24,25 @@ class TestThreeDeeBeeTree(unittest.TestCase):
     def test_positions(self):
         tdbt = ThreeDeeBeeTree()
         for i, point in enumerate(self.TESTING_POINTS):
+            # print(point, i)
             tdbt[point] = i
-        
+            # print("MY ROOT")
+            # print(tdbt.root)
+
+        print("~~~~~~~~~")
+        print(tdbt.root)
+        # print(tdbt.root.oct1)
+        # print(tdbt.root.get_child_for_key((4, 6, 19)))
+        # print(tdbt.root.get_child_for_key((-6, -14, 12)))
+        # print(tdbt.root.get_child_for_key((16, 0, -14)))
+        # print(tdbt.root.get_child_for_key((-18, 7, 5)))
+        # print(tdbt.root.get_child_for_key((-14, 18, -4)))
+        # print(tdbt.root.get_child_for_key((10, -20, 1)))
+        # print(tdbt.root.get_child_for_key((-16, 2, -6)))
+        # print(tdbt.root.get_child_for_key((5, 5, 7)))
+        # print(tdbt.root.get_child_for_key((-11, 4, -16)))
         child = tdbt.root.get_child_for_key((-11, 4, -16))
+        print(child)
         self.assertEqual(child.key, (-11, 4, -16))
 
         subchild = child.get_child_for_key((-18, 7, 5))

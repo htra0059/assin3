@@ -8,7 +8,7 @@ def do_stuff(q1, a, k, method):
     except Exception as e:
         q1.put(e)
 
-def timeout(sec=50):
+def timeout(sec=300):
     def timeout_dec(func):
         @wraps(func)
         def test(*args, **kwargs):

@@ -17,6 +17,13 @@ class TestBeehiveSelector(unittest.TestCase):
             Beehive(45, 42, 43, capacity=1, nutrient_factor=85, volume=10),
             Beehive(55, 52, 53, capacity=400, nutrient_factor=5000, volume=0),
         )
+        # b2 = b3 are both highest, b4 b1 b5, SO b2, b3, b4, b1, b5
+        print(b1)
+        print(b2)
+        print(b3)
+        print(b4)
+        print(b5)
+        print("BOOGERS")
         for hive in [b1, b2, b3, b4, b5]:
             s.add_beehive(hive)
         
@@ -46,4 +53,6 @@ class TestBeehiveSelector(unittest.TestCase):
         self.assertEqual(len(all_emeralds), len(expected))
         for actual, ex in zip(all_emeralds, expected):
             self.assertAlmostEqual(actual, ex, 0)
+
+
         
